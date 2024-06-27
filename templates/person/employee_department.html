@@ -1,0 +1,24 @@
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee and Department Information</title>
+</head>
+
+<body>
+    <h1>Departments:</h1>
+    <ul>
+        {% for department in departments %}
+            <li>{{ department.name }}</li>
+            <ul>
+                {% for employee in employees %}
+                    {% if employee.department == department %}
+                        <li>{{ employee.full_name }} - {{ employee.position }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+</body>
+</html>
