@@ -31,6 +31,20 @@ pip install -r requirements.txt
 python3 manage.py migrate
 ```
 
+При необходимости, заполнить .env:
+
+```
+SECRET_KEY=your_absolutely_secret_key
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+```
+
+Для доступа к админке создать супервользователя:
+
+```
+python3 manage.py createsuperuser
+```
+
 Запустить проект:
 
 ```
