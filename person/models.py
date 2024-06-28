@@ -1,15 +1,15 @@
 from django.db import models
 
 
-MAX_LENGTH = 50
-NAME_LENGTH = 100
-POSITION_LENGTH = 50
+MAX_LEN = 50
+NAME_LEN = 100
+POSITION_LEN = 50
 SALARY_DIGITS = 10
 SALARY_DIGITS_DECIMAL = 2
 
 
 class Department(models.Model):
-    name = models.CharField('Наименование', max_length=NAME_LENGTH)
+    name = models.CharField('Наименование', max_length=NAME_LEN)
     parent = models.ForeignKey(
         'self',
         on_delete=models.CASCADE,
@@ -25,12 +25,27 @@ class Department(models.Model):
     def __str__(self):
         return (
             f'{self.name} / {self.parent}' if self.parent else f'{self.name}'
-        )[:MAX_LENGTH]
+        )[:MAX_LEN]
+
+
+class Position(models.Model):
+    position = models.CharField('Должность', max_length=POSITION_LEN)
+
+    class Meta:
+        verbose_name = 'Должность'
+        verbose_name_plural = 'Должности'
+
+    def __str__(self):
+        return f'{self.position}'[:MAX_LEN]
 
 
 class Employee(models.Model):
-    full_name = models.CharField('ФИО', max_length=NAME_LENGTH)
-    position = models.CharField('Должность', max_length=POSITION_LENGTH)
+    full_name = models.CharField('ФИО', max_length=NAME_LEN)
+    position = models.ForeignKey(
+        Position,
+        on_delete=models.CASCADE,
+        verbose_name='Должность'
+    )
     hire_date = models.DateField('Дата')
     salary = models.DecimalField('Оклад',
                                  max_digits=SALARY_DIGITS,
@@ -46,4 +61,4 @@ class Employee(models.Model):
         verbose_name_plural = 'Сотрудники'
 
     def __str__(self):
-        return f'{self.full_name} {self.position}'[:MAX_LENGTH]
+        return f'{self.full_name} {self.position}'[:MAX_LEN]

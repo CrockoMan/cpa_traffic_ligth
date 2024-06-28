@@ -1,3 +1,4 @@
 Django==3.2.16
+python-dotenv==0.19.0
 django-bootstrap5==22.2
 Faker==26.0.0
