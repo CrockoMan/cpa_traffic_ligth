@@ -1,7 +1,7 @@
 ## Тестовое задание python-разработчик CPA Traffic Light
 ![image](https://github.com/CrockoMan/cpa_traffic_ligth/assets/125302139/5aaee115-521a-4eda-9cab-2cc7493f77e7)
 #### Результат:
-![image](https://github.com/CrockoMan/cpa_traffic_ligth/assets/125302139/07697874-8cf1-4e7c-94ce-4b7ea96fdc1d)
+![image](https://github.com/CrockoMan/cpa_traffic_ligth/assets/125302139/11d0593a-b484-410c-91ec-7f85d9927036)
 ### Как запустить проект:
 
 Клонировать репозиторий и перейти в него:
