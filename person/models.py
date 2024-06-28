@@ -1,15 +1,21 @@
 from django.db import models
 
-MAX_LENGTH = 30
+
+MAX_LENGTH = 50
+NAME_LENGTH = 100
+POSITION_LENGTH = 50
+SALARY_DIGITS = 10
+SALARY_DIGITS_DECIMAL = 2
+
 
 class Department(models.Model):
-    name = models.CharField('Наименование', max_length=100)
+    name = models.CharField('Наименование', max_length=NAME_LENGTH)
     parent = models.ForeignKey(
         'self',
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        verbose_name='Иерархия'
+        verbose_name='Вышестоящее подразделение'
     )
 
     class Meta:
@@ -18,16 +24,17 @@ class Department(models.Model):
 
     def __str__(self):
         return (
-            f'{self.parent} / {self.name}' if self.parent else f'{self.name}'
+            f'{self.name} / {self.parent}' if self.parent else f'{self.name}'
         )[:MAX_LENGTH]
 
 
-
 class Employee(models.Model):
-    full_name = models.CharField('ФИО', max_length=100)
-    position = models.CharField('Должность', max_length=50)
+    full_name = models.CharField('ФИО', max_length=NAME_LENGTH)
+    position = models.CharField('Должность', max_length=POSITION_LENGTH)
     hire_date = models.DateField('Дата')
-    salary = models.DecimalField('Оклад', max_digits=10, decimal_places=2)
+    salary = models.DecimalField('Оклад',
+                                 max_digits=SALARY_DIGITS,
+                                 decimal_places=SALARY_DIGITS_DECIMAL)
     department = models.ForeignKey(
         Department,
         on_delete=models.CASCADE,

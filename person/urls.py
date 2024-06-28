@@ -1,6 +1,6 @@
-from django.urls import include, path
-
+from django.urls import path
 from person import views
+
 
 app_name = 'person'
 

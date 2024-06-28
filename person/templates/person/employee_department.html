@@ -1,35 +1,34 @@
 {% load django_bootstrap5 %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Employee and Department Information</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Employee Department</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .department-list {
+            display: none;
+            margin-left: 20px;
+        }
+    </style>
+    {% bootstrap_css %}
+</head>
+
+<body>
+    <h1>Подразделения:</h1>
+    <ul>
+        {% for department_node in departments_tree %}
+            {% include 'person/department_node.html' with department_node=department_node %}
+        {% endfor %}
+    </ul>
+
     <script>
         $(document).ready(function(){
-            $('.department-list').hide(); // Скрываем все списки отделов по умолчанию
             $('.toggle-button').click(function(){
                 $(this).next('.department-list').slideToggle();
             });
         });
     </script>
-</head>
-<body>
-    <h1>Departments:</h1>
-    <ul>
-        {% for department in departments %}
-            <li>
-                <button class="toggle-button">{{ department.name }}</button>
-                <ul class="department-list">
-                    {% for employee in employees %}
-                        {% if employee.department == department %}
-                            <li>{{ employee.full_name }} - {{ employee.position }}</li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </li>
-        {% endfor %}
-    </ul>
 </body>
 </html>
-

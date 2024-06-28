@@ -3,8 +3,12 @@ from django.db import transaction
 from faker import Faker
 from decimal import Decimal
 import random
+from progress.bar import IncrementalBar
 
 from person.models import Department, Employee
+
+
+FILL_COUNT = 50000
 
 fake = Faker()
 
@@ -35,7 +39,7 @@ def create_employee(department):
 
 
 class Command(BaseCommand):
-    help = 'Populate database with sample data'
+    help = 'Генерация тестовых данных'
 
     def handle(self, *args, **options):
         with transaction.atomic():
@@ -47,10 +51,13 @@ class Command(BaseCommand):
 
             departments = Department.objects.all()
 
-            for _ in range(50000):
+            bar = IncrementalBar('Заполнено', max=FILL_COUNT)
+            for _ in range(FILL_COUNT):
+                bar.next()
                 department = random.choice(departments)
                 create_employee(department)
+            bar.finish()
 
         self.stdout.write(
-            self.style.SUCCESS('Database populated successfully')
+            self.style.SUCCESS('База данных успешно заполнена')
         )
