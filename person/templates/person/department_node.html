@@ -1,0 +1,12 @@
+{% load django_bootstrap5 %}
+<li>
+    <button class="btn btn-sm btn-primary toggle-button">{{ department_node.department.name }}</button>
+    <ul class="department-list">
+        {% for employee in department_node.employees %}
+            <li>{{ employee.full_name }} - {{ employee.position }}</li>
+        {% endfor %}
+        {% for child_node in department_node.children %}
+            {% include 'person/department_node.html' with department_node=child_node %}
+        {% endfor %}
+    </ul>
+</li>

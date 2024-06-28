@@ -1,0 +1,4 @@
+Django==3.2.16
+django-bootstrap5==22.2
+Faker==26.0.0
+flake8==5.0.4
